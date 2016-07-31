@@ -126,9 +126,9 @@
 </style>
 <script type="text/javascript" src="./jquery-latest.pack.js"></script>
 <script>
-$(function(){                                             <!--控制safe區對齊四個角-->
-	var parent = $("[maign]").parents("div");
-	var _max = 0;
+  $(function(){                                             <!--控制safe區對齊四個角-->
+	   var parent = $("[maign]").parents("div");
+	    var _max = 0;
 	parent.children("div").each(function(){
 		var _h = $(this).height();
 		if(_h>_max) _max = _h;
@@ -184,8 +184,8 @@ $(function(){                                             <!--控制safe區對�
   <div class="button">  <!-- 按鍵圖片 -->
   <center>
     <br>
-    <img class="hover1" src="start.png" style="width:80px;cursor: pointer;" onclick="moveOne();moveTwo();moveThree();window.document.onkeyup=up;window.document.onkeydown=down;"><br>
-    <img class="hover2" src="stop.png" style="width:80px;cursor: pointer;" ><br>
+    <img class="hover1" src="start.png" style="width:80px;cursor: pointer;" onclick="StartGame();moveOne();moveTwo();moveThree();window.document.onkeyup=up;window.document.onkeydown=down;"><br>
+    <img class="hover2" src="stop.png" style="width:80px;cursor: pointer;" onclick="StopGame();"><br>
     <img class="hover3" src="goback.png" style="width:80px;cursor: pointer;" ><br>
     <img class="hover4" src="return.png" style="width:80px;cursor: pointer;" ><br>
     <img class="hover5" src="question.png" style="width:80px;cursor: pointer;" >
@@ -207,6 +207,7 @@ $(function(){                                             <!--控制safe區對�
 <script>
   var count1=0,count2=0,count3=0;
   var iscount1=true,iscount2=true,iscount3=true;
+  var isstop=true;
   function changename1(){
     var x=document.getElementById("player1name").value;
     document.getElementById("player1").innerHTML=x;
@@ -227,7 +228,12 @@ $(function(){                                             <!--控制safe區對�
     document.getElementById("picname3").innerHTML=z;
     document.getElementById("EnterName3").style.zIndex = "-5";
   }
-
+  function StopGame(){
+    isstop=false;
+  }
+  function StartGame(){
+    isstop=true;
+  }
   var one1=false,one2=false,one3=false,one4=false;
 	var two1=false,two2=false,two3=false,two4=false;
 	var three1=false,three2=false,three3=false,three4=false;
@@ -266,16 +272,21 @@ $(function(){                                             <!--控制safe區對�
     var character=document.getElementById("down");
     var x=parseInt(character.style.left);
   	var y=parseInt(character.style.top);
-    if(one1&&x>=-19)
-			character.style.left=x-20+"px";
-		if(one2&&x<=1077)
-			character.style.left=x+20+"px";
-		if(one3&&y>=-15)
-			character.style.top=y-20+"px";
-		if(one4&&y<=705)
-			character.style.top=y+20+"px";
-		setTimeout('moveOne()',50);
-    yescount();
+    if(isstop){
+      if(one1&&x>=-19)
+			   character.style.left=x-20+"px";
+		  if(one2&&x<=1077)
+		     character.style.left=x+20+"px";
+		  if(one3&&y>=-15)
+			   character.style.top=y-20+"px";
+		  if(one4&&y<=705)
+			   character.style.top=y+20+"px";
+		  setTimeout('moveOne()',50);
+      yescount();
+    }
+    else {
+      return;
+    }
 
 	}
 
@@ -283,33 +294,42 @@ $(function(){                                             <!--控制safe區對�
     var character2=document.getElementById("down2");
     var z=parseInt(character2.style.left);
   	var k=parseInt(character2.style.top);
-		if(two1&&z>=-19)
-			character2.style.left=z-20+"px";
-		if(two2&&z<=1065)
-			character2.style.left=z+20+"px";
-		if(two3&&k>=-15)
-			character2.style.top=k-20+"px";
-		if(two4&&k<=708)
-			character2.style.top=k+20+"px";
-		setTimeout('moveTwo()',50);
-    yescount();
+    if(isstop){
+      if(two1&&z>=-19)
+			   character2.style.left=z-20+"px";
+		  if(two2&&z<=1065)
+			   character2.style.left=z+20+"px";
+		  if(two3&&k>=-15)
+			   character2.style.top=k-20+"px";
+		  if(two4&&k<=708)
+			   character2.style.top=k+20+"px";
+		  setTimeout('moveTwo()',50);
+      yescount();
+    }
+    else{
+      return;
+    }
 	}
 
 	function moveThree(){  //控制player3移動
     var character3=document.getElementById("down3");
   	var i=parseInt(character3.style.left);
   	var j=parseInt(character3.style.top);
-		if(three1&&i>=-19)
-			character3.style.left=i-20+"px";
-		if(three2&&i<=1077)
-			character3.style.left=i+20+"px";
-		if(three3&&j>=-15)
-			character3.style.top=j-20+"px";
-		if(three4&&j<=708)
-			character3.style.top=j+20+"px";
-		setTimeout('moveThree()',50);
-
-    yescount();
+    if(isstop){
+      if(three1&&i>=-19)
+			  character3.style.left=i-20+"px";
+		  if(three2&&i<=1077)
+		    character3.style.left=i+20+"px";
+		  if(three3&&j>=-15)
+			  character3.style.top=j-20+"px";
+		  if(three4&&j<=708)
+			  character3.style.top=j+20+"px";
+		  setTimeout('moveThree()',50);
+      yescount();
+    }
+    else{
+      return;
+    }
 	}
 
 
@@ -356,6 +376,7 @@ function yescount(){
   var k=parseInt(character2.style.top);
   var i=parseInt(character3.style.left);
   var j=parseInt(character3.style.top);
+
     if(iscount1&&x<=100&&y<=60){     //控制player1的count
         count1++;
         iscount1=false;
